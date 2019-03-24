@@ -1,0 +1,11 @@
+{
+  "name": "game-engine",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Matheus Cristian",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
+  }
+}

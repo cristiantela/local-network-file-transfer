@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Transfer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+
+    <body>
+        <div>
+            <input type="file" onchange="change(event)">
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+
+            var socket = io();
+
+            function change (event) {
+                let files = event.target.files
+
+                if (files.length) {
+                    let file = files[0]
+
+                    var reader  = new FileReader()
+
+                    reader.addEventListener('load', event => {
+                        socket.emit('data', {
+                            name: file.name,
+                            url: reader.result,
+                        })
+                    }, false)
+
+                    reader.readAsDataURL(file)
+                }
+            }
+
+            socket.on('data', result => {
+                var link = document.createElement('a')
+                link.download = result.name
+                link.href = result.url
+                link.click()
+            })
+
+        </script>
+    </body>
+</html>
